@@ -64,18 +64,19 @@ h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.05;color:var(--m
 .orn h2{font-size:clamp(34px,4.4vw,52px);text-align:center}
 .flourish{display:block;width:120px;height:14px;margin:6px 0 18px}
 
-/* ---------- intro: sepia film leader ---------- */
-#intro{position:fixed;inset:0;z-index:400;background:var(--maroon-dd);display:grid;place-items:center;color:var(--on-maroon);cursor:pointer;overflow:hidden}
-#intro .ring{position:relative;width:200px;height:200px;border-radius:50%;border:3px solid rgba(233,211,174,.55);display:grid;place-items:center}
-#intro .ring::before,#intro .ring::after{content:"";position:absolute;background:rgba(233,211,174,.3)}
-#intro .ring::before{width:100vw;height:2px}#intro .ring::after{height:100vh;width:2px}
-#intro .num{font-family:var(--serif);font-size:110px;font-weight:800;position:relative;z-index:2}
-#intro .sweep{position:absolute;inset:0;border-radius:50%;animation:sweep .6s linear infinite}
-@keyframes sweep{0%{background:conic-gradient(rgba(233,211,174,.3) 0deg,transparent 0)}25%{background:conic-gradient(rgba(233,211,174,.3) 90deg,transparent 0)}50%{background:conic-gradient(rgba(233,211,174,.3) 180deg,transparent 0)}75%{background:conic-gradient(rgba(233,211,174,.3) 270deg,transparent 0)}100%{background:conic-gradient(rgba(233,211,174,.3) 360deg,transparent 0)}}
-#intro .scratch{position:absolute;top:0;bottom:0;width:1px;background:rgba(255,240,210,.35);animation:scr .3s steps(3) infinite}
-@keyframes scr{0%{left:22%}33%{left:71%}66%{left:48%}}
-#intro small{position:absolute;bottom:36px;font-size:12px;letter-spacing:.24em;opacity:.6}
-.iris{position:fixed;inset:0;z-index:390;pointer-events:none;background:radial-gradient(circle at 50% 50%,transparent 0,transparent var(--r,0px),var(--maroon-dd) calc(var(--r,0px) + 1px))}
+/* ---------- intro: animated logo splash ---------- */
+#splash{position:fixed;inset:0;z-index:400;display:grid;place-items:center;cursor:pointer;color:var(--on-maroon);
+  background:radial-gradient(ellipse at 50% 40%,#5A1020 0%,var(--maroon-dd) 70%)}
+#splash::after{content:"";position:absolute;left:0;right:0;bottom:0;height:5px;background:var(--gold)}
+body.splashing{overflow:hidden}
+.splash-mark{display:flex;flex-direction:column;align-items:center;text-align:center}
+.splash-cup{width:clamp(110px,22vw,150px);height:auto;overflow:visible;margin-bottom:6px}
+.splash-cup .ln{fill:none;stroke:var(--on-maroon);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round}
+.splash-cup .stm{fill:none;stroke:var(--gold);stroke-width:2.6;stroke-linecap:round}
+.splash-word{font-family:var(--serif);font-weight:800;font-size:clamp(46px,11vw,84px);line-height:1;letter-spacing:-.01em;display:flex;overflow:hidden;padding:0 .04em .08em}
+.splash-word span{display:inline-block}
+.splash-rule{width:min(260px,60vw);height:2px;background:var(--gold);margin:14px 0 12px;transform-origin:center}
+.splash-sub{font-family:var(--body);font-weight:600;font-size:clamp(12px,2.6vw,15px);letter-spacing:.42em;padding-left:.42em;color:var(--gold)}
 
 /* ---------- nav ---------- */
 .progress{position:fixed;top:0;left:0;height:3px;width:100%;background:var(--maroon);transform-origin:left;transform:scaleX(0);z-index:120}
@@ -385,13 +386,26 @@ body.menu-open .nav-cta,body.menu-open .mbar{opacity:0;pointer-events:none}
   .facts b{font-size:28px}
 }
 
-@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}#intro,.iris{display:none}.orn::before,.orn::after{transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}#splash{display:none}.orn::before,.orn::after{transform:scaleX(1)}}
 </style>
 </head>
 <body>
 
-<div id="intro" aria-hidden="true"><div class="scratch"></div><div class="ring"><div class="sweep"></div><div class="num" id="count">3</div></div><small>CLICK TO SKIP</small></div>
-<div class="iris" id="iris" aria-hidden="true"></div>
+<div id="splash" aria-hidden="true">
+  <div class="splash-mark">
+    <svg class="splash-cup" viewBox="0 0 120 120">
+      <defs><clipPath id="cupClip"><path d="M24 50h72v14a36 36 0 0 1-72 0z"/></clipPath></defs>
+      <g clip-path="url(#cupClip)"><g id="tea"><path id="teaWave" d="M-40 54 q10 -5 20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 t20 0 V130 H-40z" fill="#E3A33A"/></g></g>
+      <path class="ln" id="cupBody" d="M24 50h72v14a36 36 0 0 1-72 0z"/>
+      <path class="ln" id="cupHandle" d="M96 56c17 0 17 24-3 24"/>
+      <path class="ln" id="saucer" d="M10 108h100"/>
+      <path class="stm" d="M48 42c-6-8 6-11 0-20"/><path class="stm" d="M60 40c-6-8 6-11 0-20"/><path class="stm" d="M72 42c-6-8 6-11 0-20"/>
+    </svg>
+    <div class="splash-word" id="splashWord">Bollywood</div>
+    <div class="splash-rule"></div>
+    <div class="splash-sub">CAFE · OOTY</div>
+  </div>
+</div>
 <div class="progress" id="progress"></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -693,8 +707,8 @@ function placeSun(t){const arc=document.getElementById('arc'),w=arc.clientWidth,
   const s=document.getElementById('sunball');s.style.left=((1-t)**2*x0+2*(1-t)*t*cx+t*t*x1)+'px';s.style.top=((1-t)**2*y0+2*(1-t)*t*cy+t*t*y0)+'px'}
 placeSun(G?0:dayT);addEventListener('resize',()=>placeSun(dayT));
 
-/* ---------- intro → iris open → hero ---------- */
-const intro=document.getElementById('intro'),iris=document.getElementById('iris');
+/* ---------- animated logo splash → hero ---------- */
+const splash=document.getElementById('splash');
 function heroIn(){
   if(!G){document.querySelectorAll('.orn').forEach(o=>o.classList.add('in'));return}
   const tl=gsap.timeline();
@@ -707,14 +721,38 @@ function heroIn(){
     .from('.cupmini',{y:-40,opacity:0,rotate:-20,duration:.9,ease:'back.out(2)'},1.1)
     .from('.stamp',{scale:0,rotate:-120,duration:1,ease:'back.out(1.8)'},1.2);
 }
-function endIntro(){
-  if(intro.dataset.done)return;intro.dataset.done=1;
-  if(!G){intro.remove();iris.remove();heroIn();return}
-  intro.remove();
-  const o={r:0};gsap.to(o,{r:Math.hypot(innerWidth,innerHeight),duration:1.2,ease:'power3.in',onUpdate:()=>iris.style.setProperty('--r',o.r+'px'),onComplete:()=>iris.remove()});
-  setTimeout(heroIn,350);
+function endSplash(){
+  if(splash.dataset.done)return;splash.dataset.done=1;
+  document.body.classList.remove('splashing');
+  if(!G){splash.remove();heroIn();return}
+  gsap.timeline({onComplete:()=>splash.remove()})
+    .to('.splash-mark',{y:-60,opacity:0,duration:.5,ease:'power2.in'})
+    .to(splash,{yPercent:-100,duration:.9,ease:'power4.inOut'},.25);
+  setTimeout(heroIn,550);
 }
-if(!G)endIntro();else{let n=3;const c=document.getElementById('count');const iv=setInterval(()=>{n--;if(n<=0){clearInterval(iv);endIntro()}else c.textContent=n},600);intro.addEventListener('click',()=>{clearInterval(iv);endIntro()})}
+function playSplash(){
+  if(!G){endSplash();return}
+  document.body.classList.add('splashing');
+  // split the word into letters so they can rise one by one
+  const w=document.getElementById('splashWord');w.innerHTML=[...w.textContent].map(c=>`<span>${c}</span>`).join('');
+  const lines=splash.querySelectorAll('.ln,.stm');
+  lines.forEach(p=>{const L=p.getTotalLength();gsap.set(p,{strokeDasharray:L,strokeDashoffset:L})});
+  gsap.set('#tea',{y:62});
+  const tl=gsap.timeline({onComplete:endSplash});
+  tl.to('#saucer',{strokeDashoffset:0,duration:.45,ease:'power2.out'})
+    .to('#cupBody',{strokeDashoffset:0,duration:.7,ease:'power2.inOut'},.15)
+    .to('#cupHandle',{strokeDashoffset:0,duration:.4,ease:'power2.out'},.55)
+    .to('#tea',{y:0,duration:.9,ease:'power2.out'},.45)
+    .to('#teaWave',{x:40,duration:1.2,ease:'none',repeat:1},.45)
+    .to('.splash-cup .stm',{strokeDashoffset:0,duration:.6,stagger:.12,ease:'power1.out'},.95)
+    .from('#splashWord span',{yPercent:110,duration:.6,stagger:.04,ease:'power4.out'},.6)
+    .from('.splash-rule',{scaleX:0,duration:.6,ease:'power3.inOut'},1.05)
+    .from('.splash-sub',{opacity:0,letterSpacing:'.9em',duration:.7,ease:'power3.out'},1.15)
+    .to({}, {duration:.45});
+  splash.addEventListener('click',()=>{tl.kill();endSplash()});
+  setTimeout(endSplash,5000); // safety net
+}
+playSplash();
 
 /* ---------- scroll choreography ---------- */
 if(G){
