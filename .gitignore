@@ -1,0 +1,10 @@
+# local preview config
+.claude/
+
+# separate project that lives in this folder, not part of this site
+cherry on top/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+.vscode/
